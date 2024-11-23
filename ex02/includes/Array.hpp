@@ -16,12 +16,14 @@ class Array
 		
 		Array(unsigned int size) : _array(new T[size]), _size(size) {};
 		
-		Array(const Array &a) { _size(a._size); _array(new T[_size]);
+		Array(const Array &a) : _array(NULL), _size(0) {
+			_size = a._size; _array = new T[_size];
 			for(unsigned int i = 0; i < _size; i++) 
 			{_array[i] = a._array[i]; }};
 		
-		T& operator=(const Array<T>&a) { if (this != *a) {
-			if (_array) { delete _array; }
+		T& operator=(const Array<T>&a) { 
+			if (this != &a) {
+			if (_array) { delete[] _array; }
 			_array = new T[a._size]; _size = a._size;
 			if (a._array) { for (unsigned int i = 0; i < a._size; i++) { _array[i] = a._array[i]; }}
 			else { _size = 0; _array = NULL; } }
